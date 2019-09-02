@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>radio button and checkbox by js</title>
+	<style type="text/css">
+		.active{
+			border:1px solid green;
+		}
+	</style>
+</head>
+<body>
+	<form action="#" method="post" id="testForm">
+	    <fieldset>
+	    <legend>Example Form: show value on radio button on click</legend>
+	    
+	    <p id="checkbox_test">Checkbox:
+	        <label><input type="checkbox" name="red" value="red" /> Red</label>
+	        <label><input type="checkbox" name="blue" value="blue" /> Blue</label>
+	        <label><input type="checkbox" name="green" value="green" /> Green</label>       
+	    </p>
+	    <p>
+	    	<label>Result</label>
+	    	<input type="text" name="result" readonly>
+	    </p>
+	    <p>Click on radio button and value of that button will show in result text box</p>
+	    </fieldset>	    
+	</form>
+	<script type="text/javascript">
+		var form = document.getElementById('testForm');
+		var field = document.getElementById('checkbox_test');
+		var checkValue = field.getElementsByTagName('input');
+		var result = form.elements['result'];
+		var checkboxesChecked = [];
+		for (var i=0, len=checkValue.length; i<len; i++) {
+	        if ( checkValue[i].type === 'checkbox' ) {
+	            checkValue[i].onclick = my_script;
+	            function my_script(){
+	            	var form = this.form;
+			        var index = checkboxesChecked.indexOf(this.value);
+			        if ( this.checked == true ) {
+			            this.parentElement.classList.add("active");
+			            checkboxesChecked.push(this.value);				            
+			        } else {
+			        	this.parentElement.classList.remove("active");
+			            if(index != -1){
+			            	checkboxesChecked.splice(index,1);
+			            }
+			        }
+			        form.elements['result'].value = checkboxesChecked.join(', ');
+	            }
+	        }
+	    }		
+	</script>	
+</body>
+</html>
